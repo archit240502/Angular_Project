@@ -1,0 +1,11 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+}
+
+.footer a:hover {
+  color: #fcb69f !important;
+}

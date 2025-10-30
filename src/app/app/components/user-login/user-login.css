@@ -1,0 +1,73 @@
+.row {
+  min-height: 80vh;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.card h4 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.form-label {
+  color: #495057;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-2px);
+}
+
+a {
+  color: #28a745;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #218838;
+  text-decoration: underline;
+}
+
+.alert-danger {
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f8d7da;
+  color: #721c24;
+}

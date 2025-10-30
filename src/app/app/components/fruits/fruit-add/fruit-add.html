@@ -1,0 +1,19 @@
+<div class="card p-4 shadow-sm">
+  <h4>Add Fruit</h4>
+  <div *ngIf="msg" class="alert alert-danger">{{ msg }}</div>
+  <form (ngSubmit)="add()">
+    <div class="mb-2"><label class="form-label">Name</label><input class="form-control" [(ngModel)]="model.name" name="name" required></div>
+    <div class="mb-2"><label class="form-label">Price</label><input type="number" class="form-control" [(ngModel)]="model.price" name="price" required></div>
+    <div class="mb-2"><label class="form-label">Quantity</label><input type="number" class="form-control" [(ngModel)]="model.quantity" name="quantity" required></div>
+    <div class="mb-2">
+      <label class="form-label">Image URL</label>
+      <input class="form-control" [(ngModel)]="model.image" name="image" placeholder="assets/images/fruits/fruit-name.svg">
+      <small class="text-muted">
+        Use: assets/images/fruits/[fruit-name].svg or remote URL<br>
+        Available: apple.svg, banana.svg, orange.svg, pineapple.webp
+      </small>
+    </div>
+    <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" [(ngModel)]="model.description" name="description"></textarea></div>
+    <div class="d-flex justify-content-end"><button class="btn btn-success">Add</button></div>
+  </form>
+</div>

@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+/* Global attractive styles */
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(circle at 10% 10%, #f0fff4, #ffffff 40%);
+  color: #0f172a;
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(90deg, rgba(34,197,94,0.06), rgba(14,165,233,0.03));
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+/* Cards hover */
+.card-fruit {
+  transition: transform .18s ease, box-shadow .18s ease;
+  border-radius: 12px;
+}
+.card-fruit:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(16,24,40,0.12);
+}
+
+/* Badge */
+.badge-buy {
+  background: linear-gradient(90deg,#10b981,#06b6d4);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+/* Navbar custom */
+.navbar-brand { font-weight: 700; letter-spacing: .3px; }
+.footer { padding: 20px 0; color: #6b7280; }
+
+/* Input focus */
+.form-control:focus {
+  box-shadow: 0 0 0 0.15rem rgba(34,197,94,0.12);
+}

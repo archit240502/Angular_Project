@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "user123",
+      "role": "user"
+    },
+    {
+      "id": "d9bc",
+      "username": "archit",
+      "password": "archit123",
+      "role": "user"
+    }
+  ],
+  "fruits": [
+    {
+      "id": "1",
+      "name": "Apple",
+      "price": 100,
+      "quantity": 2,
+      "image": "assets/images/fruits/apple.svg",
+      "description": "Fresh, crispy red apples. Perfect for snacking or baking."
+    },
+    {
+      "id": "2",
+      "name": "Banana",
+      "price": 40,
+      "quantity": 12,
+      "image": "assets/images/fruits/banana.svg",
+      "description": "Sweet and creamy bananas. Rich in potassium and energy."
+    },
+    {
+      "id": "3",
+      "name": "Orange",
+      "price": 120,
+      "quantity": 3,
+      "image": "assets/images/fruits/orange.svg",
+      "description": "Juicy oranges packed with vitamin C. Great for fresh juice."
+    },
+    {
+      "id": "4",
+      "name": "Pineapple",
+      "price": 80,
+      "quantity": 1,
+      "image": "assets/images/fruits/pineapple.webp",
+      "description": "Sweet tropical pineapple. Perfect for smoothies and desserts."
+    }
+  ]
+}

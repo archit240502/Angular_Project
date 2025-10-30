@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="bananaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE135;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FDD835;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F9A825;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Banana body -->
+  <path d="M60 50 Q80 40, 100 50 Q120 60, 130 80 Q140 100, 135 120 Q130 140, 120 150 Q100 160, 80 150 Q60 140, 55 120 Q50 100, 55 80 Q55 60, 60 50 Z" 
+        fill="url(#bananaGradient)" stroke="#E6A100" stroke-width="2"/>
+  
+  <!-- Banana tip -->
+  <ellipse cx="135" cy="125" rx="8" ry="15" fill="#8D6E63" transform="rotate(20 135 125)"/>
+  
+  <!-- Banana lines -->
+  <path d="M65 60 Q85 55, 105 65 Q125 75, 130 95" fill="none" stroke="#E6A100" stroke-width="1.5"/>
+  <path d="M70 70 Q90 65, 110 75 Q125 85, 125 105" fill="none" stroke="#E6A100" stroke-width="1.5"/>
+  <path d="M75 80 Q95 75, 115 85 Q120 95, 120 115" fill="none" stroke="#E6A100" stroke-width="1.5"/>
+  
+  <!-- Highlight -->
+  <ellipse cx="90" cy="80" rx="15" ry="8" fill="#FFF59D" opacity="0.6" transform="rotate(-20 90 80)"/>
+</svg>

@@ -1,0 +1,19 @@
+.navbar { border-radius: 8px; }
+
+.cart-link {
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.cart-link:hover {
+  color: #ffeb3b !important;
+}
+
+.cart-badge {
+  font-size: 0.75rem;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0;
+  transform: translate(50%, -50%) !important;
+}

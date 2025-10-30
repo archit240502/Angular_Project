@@ -1,0 +1,41 @@
+.card-fruit {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+}
+
+.card-fruit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+}
+
+.add-to-cart-btn {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.cart-quantity-badge .badge {
+  font-size: 0.75rem;
+  border-radius: 20px;
+  padding: 0.375rem 0.75rem;
+}
+
+.badge-buy {
+  background-color: #28a745;
+  color: white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}

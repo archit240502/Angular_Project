@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="orangeGradient" cx="45%" cy="35%">
+      <stop offset="0%" style="stop-color:#FFB74D;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#FF9800;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E65100;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Orange body -->
+  <circle cx="100" cy="100" r="70" fill="url(#orangeGradient)" stroke="#E65100" stroke-width="2"/>
+  
+  <!-- Orange texture -->
+  <circle cx="85" cy="85" r="3" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="115" cy="75" r="2" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="125" cy="95" r="2.5" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="95" cy="110" r="2" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="110" cy="125" r="3" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="75" cy="115" r="2" fill="#FF8F00" opacity="0.7"/>
+  <circle cx="120" cy="110" r="2" fill="#FF8F00" opacity="0.7"/>
+  
+  <!-- Orange stem -->
+  <rect x="95" y="25" width="10" height="15" fill="#4CAF50" rx="2"/>
+  <ellipse cx="100" cy="35" rx="8" ry="4" fill="#66BB6A"/>
+  
+  <!-- Leaf -->
+  <ellipse cx="110" cy="32" rx="12" ry="6" fill="#4CAF50" transform="rotate(20 110 32)"/>
+  <path d="M105 32 Q115 28, 120 35" stroke="#2E7D32" stroke-width="1" fill="none"/>
+  
+  <!-- Highlight -->
+  <ellipse cx="80" cy="70" rx="20" ry="15" fill="#FFCC80" opacity="0.6" transform="rotate(-30 80 70)"/>
+</svg>

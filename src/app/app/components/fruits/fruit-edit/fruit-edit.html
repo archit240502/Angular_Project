@@ -1,0 +1,13 @@
+<div *ngIf="loading" class="py-3">Loading...</div>
+<div *ngIf="!loading" class="card p-4 shadow-sm">
+  <h4>Edit Fruit</h4>
+  <div *ngIf="msg" class="alert alert-danger">{{ msg }}</div>
+  <form (ngSubmit)="save()">
+    <div class="mb-2"><label class="form-label">Name</label><input [(ngModel)]="model.name" name="name" class="form-control"></div>
+    <div class="mb-2"><label class="form-label">Price</label><input type="number" [(ngModel)]="model.price" name="price" class="form-control"></div>
+    <div class="mb-2"><label class="form-label">Quantity</label><input type="number" [(ngModel)]="model.quantity" name="quantity" class="form-control"></div>
+    <div class="mb-2"><label class="form-label">Image URL</label><input [(ngModel)]="model.image" name="image" class="form-control"></div>
+    <div class="mb-3"><label class="form-label">Description</label><textarea [(ngModel)]="model.description" name="description" class="form-control"></textarea></div>
+    <div class="d-flex justify-content-end"><button class="btn btn-primary">Save</button></div>
+  </form>
+</div>
