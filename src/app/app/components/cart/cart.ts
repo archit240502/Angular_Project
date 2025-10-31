@@ -71,20 +71,7 @@ export class CartComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Simulate order processing
-    const orderConfirmation = confirm(
-      `Confirm your order:\n\nTotal Items: ${this.cart.totalItems}\nTotal Amount: ₹${this.cart.totalAmount.toFixed(2)}\n\nProceed with checkout?`
-    );
-
-    if (orderConfirmation) {
-      // Clear the cart after successful order
-      this.cartService.clearCart();
-      
-      // Show success message
-      alert('🎉 Order placed successfully! Thank you for your purchase. Your fruits will be delivered soon.');
-      
-      // Redirect to home page
-      this.router.navigate(['/home']);
-    }
+    // Navigate to checkout page
+    this.router.navigate(['/checkout']);
   }
 }

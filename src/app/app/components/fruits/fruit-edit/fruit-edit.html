@@ -1,13 +1,263 @@
-<div *ngIf="loading" class="py-3">Loading...</div>
-<div *ngIf="!loading" class="card p-4 shadow-sm">
-  <h4>Edit Fruit</h4>
-  <div *ngIf="msg" class="alert alert-danger">{{ msg }}</div>
-  <form (ngSubmit)="save()">
-    <div class="mb-2"><label class="form-label">Name</label><input [(ngModel)]="model.name" name="name" class="form-control"></div>
-    <div class="mb-2"><label class="form-label">Price</label><input type="number" [(ngModel)]="model.price" name="price" class="form-control"></div>
-    <div class="mb-2"><label class="form-label">Quantity</label><input type="number" [(ngModel)]="model.quantity" name="quantity" class="form-control"></div>
-    <div class="mb-2"><label class="form-label">Image URL</label><input [(ngModel)]="model.image" name="image" class="form-control"></div>
-    <div class="mb-3"><label class="form-label">Description</label><textarea [(ngModel)]="model.description" name="description" class="form-control"></textarea></div>
-    <div class="d-flex justify-content-end"><button class="btn btn-primary">Save</button></div>
-  </form>
+<div class="edit-fruit-container">
+  <div class="edit-fruit-background">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <h3 class="loading-title">Loading Fruit Details...</h3>
+      <p class="loading-text">Please wait while we fetch the information</p>
+    </div>
+  </div>
+
+  <!-- Main Form -->
+  <div *ngIf="!loading" class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-lg-8 col-md-10 col-sm-11 col-12">
+      <div class="edit-fruit-card">
+        <!-- Header Section -->
+        <div class="form-header">
+          <div class="header-icon">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h1 class="form-title">Edit Fruit Details</h1>
+          <p class="form-subtitle">Update your fruit inventory information</p>
+          <div class="fruit-id-badge" *ngIf="model.id">
+            <i class="fas fa-hashtag me-1"></i>
+            Fruit ID: {{ model.id }}
+          </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div *ngIf="msg" class="alert alert-danger-custom">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          {{ msg }}
+          <div *ngIf="msg.includes('JSON server')" class="mt-2">
+            <strong>To start the JSON server:</strong><br>
+            <code>cd fruit-basket && npx json-server --watch db.json --port 3000</code>
+          </div>
+        </div>
+
+        <div *ngIf="imageError" class="alert alert-warning-custom">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Image failed to load. Please check the URL or use a different image.
+        </div>
+
+        <!-- No Data Message -->
+        <div *ngIf="!loading && !model.id && !msg" class="alert alert-warning-custom">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          No fruit data found. Please check the fruit ID and try again.
+        </div>
+
+        <form (ngSubmit)="save()" class="fruit-form" *ngIf="!loading && model.id">
+          <div class="form-grid">
+            <!-- Left Column -->
+            <div class="form-column">
+              <!-- Fruit Name -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-apple-alt me-2"></i>
+                  Fruit Name
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.name" 
+                    name="name" 
+                    placeholder="e.g., Red Apple, Fresh Banana"
+                    required
+                    autocomplete="off">
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Update the descriptive name for your fruit
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-rupee-sign me-2"></i>
+                  Price per Unit
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">₹</span>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-modern with-prefix" 
+                    [(ngModel)]="model.price" 
+                    name="price" 
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                    required>
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-calculator me-1"></i>
+                  Adjust pricing based on market conditions
+                </div>
+              </div>
+
+              <!-- Quantity -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-boxes me-2"></i>
+                  Stock Quantity
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    type="number" 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.quantity" 
+                    name="quantity" 
+                    placeholder="0"
+                    min="0"
+                    required>
+                  <span class="input-suffix">units</span>
+                  <div class="input-border"></div>
+                </div>
+                <div class="quantity-status" [class]="getQuantityStatusClass(model.quantity)">
+                  <i [class]="getQuantityStatusIcon(model.quantity)"></i>
+                  {{ getQuantityStatusText(model.quantity) }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="form-column">
+              <!-- Image URL -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-image me-2"></i>
+                  Fruit Image
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.image" 
+                    name="image" 
+                    placeholder="Paste image URL or use local assets"
+                    (input)="onImageChange()"
+                    autocomplete="off">
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-link me-1"></i>
+                  Available: apple.svg, banana.svg, orange.svg, pineapple.webp
+                </div>
+                
+                <!-- Image Preview Section -->
+                <div class="image-preview-section" *ngIf="model.image && model.image.trim()">
+                  <div class="preview-label">
+                    <i class="fas fa-eye me-1"></i>
+                    Image Preview
+                  </div>
+                  <div class="image-preview-container">
+                    <div class="image-preview-frame" *ngIf="!imageError">
+                      <img [src]="model.image" 
+                           [alt]="model.name || 'Fruit preview'"
+                           class="img-preview"
+                           (load)="onImageChange()"
+                           (error)="onImageError()">
+                      <div class="image-overlay">
+                        <i class="fas fa-check-circle"></i>
+                      </div>
+                    </div>
+                    <div class="image-error-frame" *ngIf="imageError">
+                      <i class="fas fa-exclamation-triangle"></i>
+                      <span>Failed to load image</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-align-left me-2"></i>
+                  Description
+                </label>
+                <div class="input-wrapper">
+                  <textarea 
+                    class="form-control form-control-modern textarea-modern" 
+                    [(ngModel)]="model.description" 
+                    name="description"
+                    placeholder="Describe the fruit's taste, origin, benefits..."
+                    rows="4"></textarea>
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-pen me-1"></i>
+                  Help customers learn about this fruit
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary-gradient" onclick="history.back()">
+              <i class="fas fa-arrow-left me-2"></i>
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary-gradient">
+              <i class="fas fa-save me-2"></i>
+              Save Changes
+              <span class="btn-shimmer"></span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Edit History & Info -->
+        <div class="edit-info" *ngIf="!loading && model.id">
+          <h3 class="info-title">
+            <i class="fas fa-history me-2"></i>
+            Edit Information
+          </h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div class="info-content">
+                <span class="info-label">Last Updated</span>
+                <span class="info-value">{{ getCurrentDate() }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-user-shield"></i>
+              <div class="info-content">
+                <span class="info-label">Updated By</span>
+                <span class="info-value">Admin User</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-chart-line"></i>
+              <div class="info-content">
+                <span class="info-label">Stock Status</span>
+                <span class="info-value" [class]="getStockStatusClass(model.quantity)">
+                  {{ getStockStatusText(model.quantity) }}
+                </span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-money-bill-wave"></i>
+              <div class="info-content">
+                <span class="info-label">Total Value</span>
+                <span class="info-value">₹{{ getTotalValue() }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

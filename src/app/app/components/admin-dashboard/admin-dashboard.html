@@ -1,23 +1,182 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h3>Admin Dashboard</h3>
-  <a routerLink="/add-fruit" class="btn btn-success">Add Fruit</a>
-</div>
+<div class="admin-dashboard">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="header-info">
+        <h1 class="dashboard-title">
+          <i class="fas fa-tachometer-alt me-3"></i>
+          Admin Dashboard
+        </h1>
+        <p class="dashboard-subtitle">Manage your fruit inventory with ease</p>
+      </div>
+      <div class="header-actions">
+        <a routerLink="/add-fruit" class="btn btn-add-fruit">
+          <i class="fas fa-plus me-2"></i>
+          Add New Fruit
+        </a>
+      </div>
+    </div>
+  </div>
 
-<table class="table table-hover shadow-sm">
-  <thead class="table-light">
-    <tr><th>#</th><th>Name</th><th>Price</th><th>Qty</th><th>Desc</th><th>Actions</th></tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let f of fruits">
-      <td>{{f.id}}</td>
-      <td>{{f.name}}</td>
-      <td>₹{{f.price}}</td>
-      <td>{{f.quantity}}</td>
-      <td>{{f.description}}</td>
-      <td>
-        <button (click)="edit(f.id)" class="btn btn-sm btn-primary me-2">Edit</button>
-        <button (click)="del(f.id)" class="btn btn-sm btn-danger">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">
+        <i class="fas fa-apple-alt"></i>
+      </div>
+      <div class="stat-info">
+        <h3 class="stat-number">{{ fruits.length }}</h3>
+        <p class="stat-label">Total Fruits</p>
+      </div>
+      <div class="stat-trend">
+        <span class="trend-up">
+          <i class="fas fa-arrow-up"></i>
+          12%
+        </span>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-icon">
+        <i class="fas fa-boxes"></i>
+      </div>
+      <div class="stat-info">
+        <h3 class="stat-number">{{ getTotalQuantity() }}</h3>
+        <p class="stat-label">Total Stock</p>
+      </div>
+      <div class="stat-trend">
+        <span class="trend-up">
+          <i class="fas fa-arrow-up"></i>
+          8%
+        </span>
+      </div>
+    </div>
+
+    <div class="stat-card stat-warning">
+      <div class="stat-icon">
+        <i class="fas fa-rupee-sign"></i>
+      </div>
+      <div class="stat-info">
+        <h3 class="stat-number">₹{{ getTotalValue() }}</h3>
+        <p class="stat-label">Inventory Value</p>
+      </div>
+      <div class="stat-trend">
+        <span class="trend-up">
+          <i class="fas fa-arrow-up"></i>
+          15%
+        </span>
+      </div>
+    </div>
+
+    <div class="stat-card stat-danger">
+      <div class="stat-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="stat-info">
+        <h3 class="stat-number">{{ getLowStockCount() }}</h3>
+        <p class="stat-label">Low Stock Items</p>
+      </div>
+      <div class="stat-trend">
+        <span class="trend-down">
+          <i class="fas fa-arrow-down"></i>
+          3%
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory Table -->
+  <div class="inventory-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <i class="fas fa-warehouse me-2"></i>
+        Fruit Inventory
+      </h2>
+      <div class="section-actions">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search fruits..." [(ngModel)]="searchTerm" class="search-input">
+        </div>
+      </div>
+    </div>
+
+    <div class="table-container" *ngIf="!loading">
+      <div class="table-responsive">
+        <table class="inventory-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Fruit Name</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Status</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let f of getFilteredFruits()" class="table-row">
+              <td class="image-cell">
+                <div class="fruit-image">
+                  <img [src]="f.image" [alt]="f.name" (error)="onImageError($event)">
+                </div>
+              </td>
+              <td class="name-cell">
+                <div class="fruit-name">{{ f.name }}</div>
+                <div class="fruit-id">#{{ f.id }}</div>
+              </td>
+              <td class="price-cell">
+                <span class="price">₹{{ f.price }}</span>
+              </td>
+              <td class="quantity-cell">
+                <span class="quantity-badge" [class]="getQuantityClass(f.quantity)">
+                  {{ f.quantity }} units
+                </span>
+              </td>
+              <td class="status-cell">
+                <span class="status-badge" [class]="getStatusClass(f.quantity)">
+                  <i [class]="getStatusIcon(f.quantity)"></i>
+                  {{ getStatus(f.quantity) }}
+                </span>
+              </td>
+              <td class="description-cell">
+                <div class="description-text">{{ f.description || 'No description' }}</div>
+              </td>
+              <td class="actions-cell">
+                <div class="action-buttons">
+                  <button (click)="edit(f.id)" class="btn-action btn-edit" title="Edit Fruit">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button (click)="del(f.id)" class="btn-action btn-delete" title="Delete Fruit">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <p class="loading-text">Loading inventory...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && fruits.length === 0" class="empty-state">
+      <div class="empty-icon">
+        <i class="fas fa-apple-alt"></i>
+      </div>
+      <h3 class="empty-title">No Fruits Found</h3>
+      <p class="empty-message">Start by adding your first fruit to the inventory</p>
+      <a routerLink="/add-fruit" class="btn btn-add-fruit">
+        <i class="fas fa-plus me-2"></i>
+        Add Your First Fruit
+      </a>
+    </div>
+  </div>
+</div>

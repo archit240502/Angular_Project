@@ -1,6 +1,13 @@
 
-<app-navbar></app-navbar>
+@if (showNavbarAndFooter()) {
+  <app-navbar></app-navbar>
+}
 
 <router-outlet />
 
-<app-footer></app-footer>
+@if (showNavbarAndFooter()) {
+  <app-footer></app-footer>
+}
+
+<!-- Toast Container -->
+<app-toast-container></app-toast-container>

@@ -7,6 +7,7 @@ import { AdminDashboard } from './app/components/admin-dashboard/admin-dashboard
 import { FruitAdd } from './app/components/fruits/fruit-add/fruit-add';
 import { FruitEdit } from './app/components/fruits/fruit-edit/fruit-edit';
 import { CartComponent } from './app/components/cart/cart';
+import { CheckoutComponent } from './app/components/checkout/checkout';
 import { AuthGuard } from './app/services/auth.guard';
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'home', component: Home },
   { path: 'fruits', component: FruitList },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminDashboard },
   { path: 'add-fruit', component: FruitAdd },
   { path: 'edit-fruit/:id', component: FruitEdit, },

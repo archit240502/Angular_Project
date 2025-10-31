@@ -1,19 +1,238 @@
-<div class="card p-4 shadow-sm">
-  <h4>Add Fruit</h4>
-  <div *ngIf="msg" class="alert alert-danger">{{ msg }}</div>
-  <form (ngSubmit)="add()">
-    <div class="mb-2"><label class="form-label">Name</label><input class="form-control" [(ngModel)]="model.name" name="name" required></div>
-    <div class="mb-2"><label class="form-label">Price</label><input type="number" class="form-control" [(ngModel)]="model.price" name="price" required></div>
-    <div class="mb-2"><label class="form-label">Quantity</label><input type="number" class="form-control" [(ngModel)]="model.quantity" name="quantity" required></div>
-    <div class="mb-2">
-      <label class="form-label">Image URL</label>
-      <input class="form-control" [(ngModel)]="model.image" name="image" placeholder="assets/images/fruits/fruit-name.svg">
-      <small class="text-muted">
-        Use: assets/images/fruits/[fruit-name].svg or remote URL<br>
-        Available: apple.svg, banana.svg, orange.svg, pineapple.webp
-      </small>
+<div class="add-fruit-container">
+  <div class="add-fruit-background">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
     </div>
-    <div class="mb-3"><label class="form-label">Description</label><textarea class="form-control" [(ngModel)]="model.description" name="description"></textarea></div>
-    <div class="d-flex justify-content-end"><button class="btn btn-success">Add</button></div>
-  </form>
+  </div>
+
+  <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-lg-8 col-md-10 col-sm-11 col-12">
+      <div class="add-fruit-card">
+        <!-- Header Section -->
+        <div class="form-header">
+          <div class="header-icon">
+            <i class="fas fa-plus-circle"></i>
+          </div>
+          <h1 class="form-title">Add New Fruit</h1>
+          <p class="form-subtitle">Expand your inventory with fresh, delicious fruits</p>
+        </div>
+
+        <!-- Alert Messages -->
+        <div *ngIf="msg" class="alert alert-success-custom">
+          <i class="fas fa-check-circle me-2"></i>
+          {{ msg }}
+        </div>
+
+        <div *ngIf="imageError" class="alert alert-warning-custom">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          Image failed to load. Please check the URL or use a different image.
+        </div>
+
+        <form (ngSubmit)="add()" class="fruit-form">
+          <div class="form-grid">
+            <!-- Left Column -->
+            <div class="form-column">
+              <!-- Fruit Name -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-apple-alt me-2"></i>
+                  Fruit Name
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.name" 
+                    name="name" 
+                    placeholder="e.g., Red Apple, Fresh Banana"
+                    required
+                    autocomplete="off">
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Enter a descriptive name for your fruit
+                </div>
+              </div>
+
+              <!-- Price -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-rupee-sign me-2"></i>
+                  Price per Unit
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">₹</span>
+                  <input 
+                    type="number" 
+                    class="form-control form-control-modern with-prefix" 
+                    [(ngModel)]="model.price" 
+                    name="price" 
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                    required>
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-calculator me-1"></i>
+                  Set competitive pricing for your fruit
+                </div>
+              </div>
+
+              <!-- Quantity -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-boxes me-2"></i>
+                  Stock Quantity
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    type="number" 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.quantity" 
+                    name="quantity" 
+                    placeholder="0"
+                    min="0"
+                    required>
+                  <span class="input-suffix">units</span>
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-warehouse me-1"></i>
+                  How many units do you have in stock?
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="form-column">
+              <!-- Image URL -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-image me-2"></i>
+                  Fruit Image
+                </label>
+                <div class="input-wrapper">
+                  <input 
+                    class="form-control form-control-modern" 
+                    [(ngModel)]="model.image" 
+                    name="image" 
+                    placeholder="Paste image URL or use local assets"
+                    (input)="onImageChange()"
+                    autocomplete="off">
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-link me-1"></i>
+                  Available: apple.svg, banana.svg, orange.svg, pineapple.webp
+                </div>
+                
+                <!-- Quick Image Selection -->
+                <div class="quick-image-selection mt-2">
+                  <small class="text-muted">Quick select:</small>
+                  <div class="quick-image-buttons mt-1">
+                    <button type="button" class="btn btn-sm btn-outline-primary me-1" 
+                            (click)="setImage('assets/images/fruits/apple.svg')">🍎 Apple</button>
+                    <button type="button" class="btn btn-sm btn-outline-warning me-1" 
+                            (click)="setImage('assets/images/fruits/banana.svg')">🍌 Banana</button>
+                    <button type="button" class="btn btn-sm btn-outline-info me-1" 
+                            (click)="setImage('assets/images/fruits/orange.svg')">🍊 Orange</button>
+                    <button type="button" class="btn btn-sm btn-outline-success" 
+                            (click)="setImage('assets/images/fruits/pineapple.webp')">🍍 Pineapple</button>
+                  </div>
+                </div>
+                
+                <!-- Image Preview Section -->
+                <div class="image-preview-section" *ngIf="model.image && model.image.trim()">
+                  <div class="preview-label">
+                    <i class="fas fa-eye me-1"></i>
+                    Image Preview
+                  </div>
+                  <div class="image-preview-container">
+                    <div class="image-preview-frame" *ngIf="!imageError">
+                      <img [src]="model.image" 
+                           [alt]="model.name || 'Fruit preview'"
+                           class="img-preview"
+                           (load)="onImageChange()"
+                           (error)="onImageError()">
+                      <div class="image-overlay">
+                        <i class="fas fa-check-circle"></i>
+                      </div>
+                    </div>
+                    <div class="image-error-frame" *ngIf="imageError">
+                      <i class="fas fa-exclamation-triangle"></i>
+                      <span>Failed to load image</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="fas fa-align-left me-2"></i>
+                  Description
+                </label>
+                <div class="input-wrapper">
+                  <textarea 
+                    class="form-control form-control-modern textarea-modern" 
+                    [(ngModel)]="model.description" 
+                    name="description"
+                    placeholder="Describe the fruit's taste, origin, benefits..."
+                    rows="4"></textarea>
+                  <div class="input-border"></div>
+                </div>
+                <div class="form-hint">
+                  <i class="fas fa-pen me-1"></i>
+                  Help customers learn about this fruit
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary-gradient" onclick="history.back()">
+              <i class="fas fa-arrow-left me-2"></i>
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-success-gradient">
+              <i class="fas fa-plus-circle me-2"></i>
+              Add Fruit to Inventory
+              <span class="btn-shimmer"></span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Quick Tips -->
+        <div class="quick-tips">
+          <h3 class="tips-title">
+            <i class="fas fa-lightbulb me-2"></i>
+            Quick Tips
+          </h3>
+          <div class="tips-grid">
+            <div class="tip-item">
+              <i class="fas fa-camera"></i>
+              <span>Use high-quality images for better sales</span>
+            </div>
+            <div class="tip-item">
+              <i class="fas fa-tag"></i>
+              <span>Price competitively for your market</span>
+            </div>
+            <div class="tip-item">
+              <i class="fas fa-chart-line"></i>
+              <span>Monitor stock levels regularly</span>
+            </div>
+            <div class="tip-item">
+              <i class="fas fa-star"></i>
+              <span>Write engaging descriptions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

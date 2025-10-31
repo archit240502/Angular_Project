@@ -25,7 +25,7 @@
       "name": "Apple",
       "price": 100,
       "quantity": 2,
-      "image": "assets/images/fruits/apple.svg",
+      "image": "https://5.imimg.com/data5/AK/RA/MY-68428614/apple.jpg",
       "description": "Fresh, crispy red apples. Perfect for snacking or baking."
     },
     {
@@ -33,7 +33,7 @@
       "name": "Banana",
       "price": 40,
       "quantity": 12,
-      "image": "assets/images/fruits/banana.svg",
+      "image": "https://nutritionsource.hsph.harvard.edu/wp-content/uploads/2018/08/bananas-1354785_1920.jpg",
       "description": "Sweet and creamy bananas. Rich in potassium and energy."
     },
     {
@@ -41,16 +41,32 @@
       "name": "Orange",
       "price": 120,
       "quantity": 3,
-      "image": "assets/images/fruits/orange.svg",
+      "image": "https://cdn.mos.cms.futurecdn.net/xCZ2VwHz6pDUHCSVvaQsDT.jpg",
       "description": "Juicy oranges packed with vitamin C. Great for fresh juice."
     },
     {
       "id": "4",
       "name": "Pineapple",
       "price": 80,
-      "quantity": 1,
+      "quantity": 2,
       "image": "assets/images/fruits/pineapple.webp",
       "description": "Sweet tropical pineapple. Perfect for smoothies and desserts."
+    },
+    {
+      "id": "4e93",
+      "name": "Dragon fruit",
+      "price": 150,
+      "quantity": 1,
+      "image": "https://images.everydayhealth.com/images/diet-nutrition/dragon-fruit-101-1440x810.jpg?sfvrsn=3bd52a80_3",
+      "description": ""
+    },
+    {
+      "id": "5ac4",
+      "name": "Mango",
+      "price": 100,
+      "quantity": 100,
+      "image": "https://natural-cure.org/wp-content/uploads/diet-and-nutrition-Mango-The-King-of-Fruit-has-Incredible-Health-Benefits.jpg",
+      "description": ""
     }
   ]
 }
