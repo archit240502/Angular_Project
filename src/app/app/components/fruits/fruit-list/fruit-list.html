@@ -1,43 +1,91 @@
-<h4 class="mb-3">Available Fruits</h4>
-<div class="row">
-  <div *ngFor="let f of fruits" class="col-md-4 mb-3">
-    <div class="card card-fruit h-100">
-      <img [src]="f.image || 'assets/images/placeholder.svg'" 
-           [alt]="f.name" 
-           class="card-img-top" 
-           style="height:180px;object-fit:cover;"
-           (error)="onImageError($event)">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ f.name }}</h5>
-        <p class="text-muted mb-1">₹{{ f.price }} • {{ f.quantity }} pcs</p>
-        <p class="small text-secondary">{{ f.description }}</p>
-        <div class="mt-auto d-flex justify-content-between align-items-center">
-          <button class="btn btn-outline-success btn-sm" (click)="goEdit(f.id!)" [disabled]="!f.id">Details</button>
+<div class="fruit-list-section">
+  <div class="section-header text-center mb-5">
+    <h2 class="section-title">
+      <span class="text-gradient">Premium</span> Fresh Fruits
+    </h2>
+    <p class="section-subtitle">Handpicked from the finest orchards, delivered fresh to your doorstep</p>
+  </div>
+  
+  <div class="row g-4">
+    <div *ngFor="let f of fruits" class="col-lg-4 col-md-6">
+      <div class="card fruit-card h-100">
+        <div class="card-image-wrapper">
+          <img [src]="f.image || 'assets/images/placeholder.svg'" 
+               [alt]="f.name" 
+               class="card-img-top fruit-image" 
+               (error)="onImageError($event)">
+          <div class="image-overlay">
+            <div class="overlay-content">
+              <span class="fruit-category">Fresh & Organic</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-body d-flex flex-column">
+          <div class="fruit-header mb-3">
+            <h5 class="fruit-name">{{ f.name }}</h5>
+            <div class="fruit-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <span class="rating-text">(4.9)</span>
+            </div>
+          </div>
           
-          <!-- Add to Cart Button - Only show for logged in users -->
-          <div class="cart-controls">
-            <!-- Not logged in -->
-            <button 
-              *ngIf="!isLoggedIn()" 
-              class="btn btn-outline-secondary btn-sm" 
-              (click)="addToCart(f, $event)"
-              title="Please login to add to cart">
-              <i class="fas fa-lock me-1"></i>Login to Add
-            </button>
-            
-            <!-- Logged in but item not in cart -->
-            <button 
-              *ngIf="isLoggedIn() && f.id && !isInCart(f.id)" 
-              class="btn btn-success btn-sm add-to-cart-btn" 
-              (click)="addToCart(f, $event)">
-              <i class="fas fa-cart-plus me-1"></i>Add to Cart
-            </button>
-            
-            <!-- Logged in and item in cart -->
-            <div *ngIf="isLoggedIn() && f.id && isInCart(f.id)" class="cart-quantity-badge">
+          <div class="fruit-info mb-3">
+            <div class="price-wrapper">
+              <span class="current-price">₹{{ f.price }}</span>
+              <span class="price-unit">per {{ f.quantity }} pcs</span>
+            </div>
+            <div class="availability-badge">
               <span class="badge bg-success">
-                <i class="fas fa-check me-1"></i>In Cart ({{ getCartQuantity(f.id) }})
+                <i class="fas fa-check me-1"></i>In Stock
               </span>
+            </div>
+          </div>
+          
+          <p class="fruit-description">{{ f.description }}</p>
+          
+          <div class="card-actions mt-auto">
+            <div class="action-buttons">
+              <button class="btn btn-outline-primary btn-sm btn-details" 
+                      (click)="goEdit(f.id!)" 
+                      [disabled]="!f.id">
+                <i class="fas fa-info-circle me-1"></i>Details
+              </button>
+              
+              <!-- Cart Controls -->
+              <div class="cart-controls">
+                <!-- Not logged in -->
+                <button 
+                  *ngIf="!isLoggedIn()" 
+                  class="btn btn-cart btn-locked" 
+                  (click)="addToCart(f, $event)"
+                  title="Please login to add to cart">
+                  <i class="fas fa-lock me-1"></i>
+                  <span>Login to Add</span>
+                </button>
+                
+                <!-- Logged in but item not in cart -->
+                <button 
+                  *ngIf="isLoggedIn() && f.id && !isInCart(f.id)" 
+                  class="btn btn-cart btn-add-to-cart" 
+                  (click)="addToCart(f, $event)">
+                  <i class="fas fa-cart-plus me-1"></i>
+                  <span>Add to Cart</span>
+                  <div class="btn-ripple"></div>
+                </button>
+                
+                <!-- Logged in and item in cart -->
+                <div *ngIf="isLoggedIn() && f.id && isInCart(f.id)" class="cart-status">
+                  <div class="in-cart-badge">
+                    <i class="fas fa-check-circle me-1"></i>
+                    <span>In Cart ({{ getCartQuantity(f.id) }})</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

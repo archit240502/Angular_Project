@@ -1,100 +1,184 @@
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-12">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Shopping Cart</h2>
+<div class="cart-container">
+  <div class="cart-background">
+    <div class="floating-cart-elements">
+      <div class="cart-element element-1">🛒</div>
+      <div class="cart-element element-2">🍎</div>
+      <div class="cart-element element-3">🍊</div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="cart-header">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="cart-title-section">
+          <h1 class="cart-title">
+            <i class="fas fa-shopping-cart me-3"></i>
+            Shopping <span class="text-gradient">Cart</span>
+          </h1>
+          <p class="cart-subtitle">Review your selected items</p>
+        </div>
         <button 
           *ngIf="cart.items.length > 0" 
-          class="btn btn-outline-danger" 
+          class="btn btn-outline-danger btn-clear-cart" 
           (click)="clearCart()">
+          <i class="fas fa-trash me-2"></i>
           Clear Cart
         </button>
       </div>
+    </div>
 
-      <!-- Empty cart message -->
-      <div *ngIf="cart.items.length === 0" class="text-center py-5">
-        <div class="mb-4">
-          <i class="fas fa-shopping-cart fa-5x text-muted"></i>
+    <!-- Empty cart message -->
+    <div *ngIf="cart.items.length === 0" class="empty-cart-section">
+      <div class="empty-cart-card">
+        <div class="empty-cart-icon">
+          <i class="fas fa-shopping-cart"></i>
         </div>
-        <h4 class="text-muted mb-3">Your cart is empty</h4>
-        <p class="text-muted mb-4">Add some delicious fruits to get started!</p>
-        <a routerLink="/fruits" class="btn btn-success btn-lg">Browse Fruits</a>
+        <h3 class="empty-cart-title">Your cart is empty</h3>
+        <p class="empty-cart-message">Discover our fresh fruits and fill your cart with delicious, healthy choices!</p>
+        <div class="empty-cart-actions">
+          <a routerLink="/fruits" class="btn btn-success-gradient btn-lg">
+            <i class="fas fa-apple-alt me-2"></i>
+            Explore Fruits
+            <span class="btn-shimmer"></span>
+          </a>
+        </div>
       </div>
+    </div>
 
-      <!-- Cart items -->
-      <div *ngIf="cart.items.length > 0">
-        <div class="row">
-          <div class="col-lg-8">
-            <!-- Cart items list -->
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="row align-items-center py-3 border-bottom" *ngFor="let item of cart.items; last as isLast" [class.border-bottom-0]="isLast">
-                  <div class="col-md-2 col-sm-3">
+    <!-- Cart items -->
+    <div *ngIf="cart.items.length > 0" class="cart-content">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <!-- Cart items list -->
+          <div class="cart-items-card">
+            <div class="cart-items-header">
+              <h4 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                Cart Items ({{ cart.items.length }})
+              </h4>
+            </div>
+            <div class="cart-items-body">
+              <div class="cart-item" *ngFor="let item of cart.items; last as isLast" [class.last-item]="isLast">
+                <div class="item-image-section">
+                  <div class="item-image-wrapper">
                     <img 
                       [src]="item.fruit.image || 'assets/images/placeholder.svg'" 
                       [alt]="item.fruit.name"
-                      class="img-fluid rounded cart-image"
+                      class="item-image"
                       (error)="onImageError($event)">
-                  </div>
-                  <div class="col-md-4 col-sm-5">
-                    <h6 class="mb-1">{{ item.fruit.name }}</h6>
-                    <p class="text-muted small mb-0">{{ item.fruit.description }}</p>
-                    <p class="text-success fw-bold mb-0">₹{{ item.fruit.price }} each</p>
-                  </div>
-                  <div class="col-md-3 col-sm-2">
-                    <div class="quantity-controls d-flex align-items-center">
-                      <button 
-                        class="btn btn-outline-secondary btn-sm" 
-                        (click)="decreaseQuantity(item)"
-                        [disabled]="item.quantity <= 0">
-                        <i class="fas fa-minus"></i>
-                      </button>
-                      <span class="mx-3 fw-bold">{{ item.quantity }}</span>
-                      <button 
-                        class="btn btn-outline-secondary btn-sm" 
-                        (click)="increaseQuantity(item)">
-                        <i class="fas fa-plus"></i>
-                      </button>
+                    <div class="image-overlay">
+                      <span class="item-badge">Fresh</span>
                     </div>
                   </div>
-                  <div class="col-md-2 col-sm-2 text-end">
-                    <p class="fw-bold mb-1">₹{{ (item.fruit.price * item.quantity).toFixed(2) }}</p>
+                </div>
+                
+                <div class="item-details-section">
+                  <div class="item-info">
+                    <h5 class="item-name">{{ item.fruit.name }}</h5>
+                    <p class="item-description">{{ item.fruit.description }}</p>
+                    <div class="item-price">
+                      <span class="price-amount">₹{{ item.fruit.price }}</span>
+                      <span class="price-unit">each</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="item-quantity-section">
+                  <label class="quantity-label">Quantity</label>
+                  <div class="quantity-controls">
                     <button 
-                      class="btn btn-link text-danger p-0 small" 
-                      (click)="removeItem(item)">
-                      Remove
+                      class="quantity-btn quantity-decrease" 
+                      (click)="decreaseQuantity(item)"
+                      [disabled]="item.quantity <= 1">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <div class="quantity-display">
+                      <span class="quantity-number">{{ item.quantity }}</span>
+                    </div>
+                    <button 
+                      class="quantity-btn quantity-increase" 
+                      (click)="increaseQuantity(item)">
+                      <i class="fas fa-plus"></i>
                     </button>
                   </div>
+                </div>
+                
+                <div class="item-total-section">
+                  <div class="item-total-price">
+                    <span class="total-amount">₹{{ (item.fruit.price * item.quantity).toFixed(2) }}</span>
+                    <span class="total-label">Total</span>
+                  </div>
+                  <button 
+                    class="btn-remove-item" 
+                    (click)="removeItem(item)"
+                    title="Remove from cart">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Cart summary -->
-          <div class="col-lg-4">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="mb-0">Order Summary</h5>
+        <!-- Cart summary -->
+        <div class="col-lg-4">
+          <div class="cart-summary-card">
+            <div class="summary-header">
+              <h4 class="summary-title">
+                <i class="fas fa-receipt me-2"></i>
+                Order Summary
+              </h4>
+            </div>
+            <div class="summary-body">
+              <div class="summary-line">
+                <span class="summary-label">Total Items:</span>
+                <span class="summary-value">{{ cart.totalItems }}</span>
               </div>
-              <div class="card-body">
-                <div class="d-flex justify-content-between mb-2">
-                  <span>Total Items:</span>
-                  <span class="fw-bold">{{ cart.totalItems }}</span>
-                </div>
-                <div class="d-flex justify-content-between mb-3">
-                  <span>Subtotal:</span>
-                  <span class="fw-bold">₹{{ cart.totalAmount.toFixed(2) }}</span>
-                </div>
-                <div class="d-flex justify-content-between border-top pt-3 mb-3">
-                  <span class="fw-bold">Total:</span>
-                  <span class="fw-bold text-success fs-5">₹{{ cart.totalAmount.toFixed(2) }}</span>
-                </div>
-                <button class="btn btn-success w-100 btn-lg mb-2">
+              <div class="summary-line">
+                <span class="summary-label">Subtotal:</span>
+                <span class="summary-value">₹{{ cart.totalAmount.toFixed(2) }}</span>
+              </div>
+              <div class="summary-line delivery-line">
+                <span class="summary-label">
+                  <i class="fas fa-shipping-fast me-1"></i>
+                  Delivery:
+                </span>
+                <span class="summary-value delivery-free">FREE</span>
+              </div>
+              <div class="summary-divider"></div>
+              <div class="summary-total">
+                <span class="total-label">Total Amount:</span>
+                <span class="total-amount">₹{{ cart.totalAmount.toFixed(2) }}</span>
+              </div>
+              
+              <div class="summary-actions">
+                <button 
+                  class="btn btn-checkout"
+                  (click)="proceedToCheckout()"
+                  [disabled]="cart.items.length === 0">
+                  <i class="fas fa-credit-card me-2"></i>
                   Proceed to Checkout
+                  <span class="btn-shimmer"></span>
                 </button>
-                <a routerLink="/fruits" class="btn btn-outline-success w-100">
+                <a routerLink="/fruits" class="btn btn-continue-shopping">
+                  <i class="fas fa-arrow-left me-2"></i>
                   Continue Shopping
                 </a>
+              </div>
+              
+              <div class="trust-indicators">
+                <div class="trust-item">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>Secure Payment</span>
+                </div>
+                <div class="trust-item">
+                  <i class="fas fa-truck"></i>
+                  <span>Fast Delivery</span>
+                </div>
+                <div class="trust-item">
+                  <i class="fas fa-undo"></i>
+                  <span>Easy Returns</span>
+                </div>
               </div>
             </div>
           </div>

@@ -1,33 +1,66 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg position-sticky top-0" style="background: linear-gradient(135deg, var(--primary-600), var(--secondary-600)); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
   <div class="container">
-    <a class="navbar-brand" routerLink="/home">🍎 Fruit Basket</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <span class="me-2" style="font-size: 1.5rem;">🍎</span>
+      <span class="text-gradient-light">Fruit Basket</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="background: rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg);">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item me-2"><a routerLink="/home" class="nav-link">Home</a></li>
-        <li class="nav-item me-2"><a routerLink="/fruits" class="nav-link">Fruits</a></li>
+        <li class="nav-item me-3">
+          <a routerLink="/home" class="nav-link nav-link-modern position-relative">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item me-3">
+          <a routerLink="/fruits" class="nav-link nav-link-modern position-relative">
+            <i class="fas fa-apple-alt me-1"></i>Fruits
+          </a>
+        </li>
         
         <!-- Cart Icon - Only show when user is logged in -->
-        <li class="nav-item me-3" *ngIf="user">
-          <a routerLink="/cart" class="nav-link position-relative cart-link">
-            <i class="fas fa-shopping-cart"></i>
-            <span *ngIf="cart.totalItems > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge">
-              {{ cart.totalItems }}
-            </span>
+        <li class="nav-item me-4" *ngIf="user">
+          <a routerLink="/cart" class="nav-link position-relative cart-link-modern">
+            <div class="cart-icon-wrapper">
+              <i class="fas fa-shopping-cart"></i>
+              <span *ngIf="cart.totalItems > 0" class="cart-badge-modern">
+                {{ cart.totalItems }}
+              </span>
+            </div>
           </a>
         </li>
 
         <ng-container *ngIf="!user">
-          <li class="nav-item me-2"><a routerLink="/login" class="btn btn-outline-light btn-sm">Login</a></li>
-          <li class="nav-item"><a routerLink="/signup" class="btn btn-light btn-sm">Signup</a></li>
+          <li class="nav-item me-2">
+            <a routerLink="/login" class="btn btn-outline-light btn-sm btn-modern">
+              <i class="fas fa-sign-in-alt me-1"></i>Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/signup" class="btn btn-light btn-sm btn-modern">
+              <i class="fas fa-user-plus me-1"></i>Sign Up
+            </a>
+          </li>
         </ng-container>
 
         <ng-container *ngIf="user">
-          <li class="nav-item me-2"><span class="nav-link">Hi, {{ user.username }}</span></li>
-          <li *ngIf="user.role === 'admin'" class="nav-item me-2"><a routerLink="/admin" class="btn btn-warning btn-sm">Admin</a></li>
-          <li class="nav-item"><button (click)="logout()" class="btn btn-outline-light btn-sm">Logout</button></li>
+          <li class="nav-item me-3">
+            <span class="nav-link user-greeting">
+              <i class="fas fa-user-circle me-1"></i>Hi, {{ user.username }}
+            </span>
+          </li>
+          <li *ngIf="user.role === 'admin'" class="nav-item me-2">
+            <a routerLink="/admin" class="btn btn-warning btn-sm btn-modern">
+              <i class="fas fa-cog me-1"></i>Admin
+            </a>
+          </li>
+          <li class="nav-item">
+            <button (click)="logout()" class="btn btn-outline-light btn-sm btn-modern">
+              <i class="fas fa-sign-out-alt me-1"></i>Logout
+            </button>
+          </li>
         </ng-container>
       </ul>
     </div>

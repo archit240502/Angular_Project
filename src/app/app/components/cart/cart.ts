@@ -64,4 +64,27 @@ export class CartComponent implements OnInit, OnDestroy {
   onImageError(event: any): void {
     event.target.src = 'assets/images/placeholder.svg';
   }
+
+  proceedToCheckout(): void {
+    if (this.cart.items.length === 0) {
+      alert('Your cart is empty. Please add some items before checkout.');
+      return;
+    }
+
+    // Simulate order processing
+    const orderConfirmation = confirm(
+      `Confirm your order:\n\nTotal Items: ${this.cart.totalItems}\nTotal Amount: ₹${this.cart.totalAmount.toFixed(2)}\n\nProceed with checkout?`
+    );
+
+    if (orderConfirmation) {
+      // Clear the cart after successful order
+      this.cartService.clearCart();
+      
+      // Show success message
+      alert('🎉 Order placed successfully! Thank you for your purchase. Your fruits will be delivered soon.');
+      
+      // Redirect to home page
+      this.router.navigate(['/home']);
+    }
+  }
 }

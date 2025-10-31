@@ -1,15 +1,100 @@
-<div class="hero d-flex align-items-center">
-  <div class="row w-100 align-items-center">
-    <div class="col-md-7">
-      <h1 class="display-6">Fresh fruits delivered to your door</h1>
-      <p class="lead text-muted">Seasonal picks, curated from local farms. Fast delivery & quality guaranteed.</p>
-      <div>
-        <a routerLink="/fruits" class="btn btn-success btn-lg me-2">Browse Fruits</a>
-        <a routerLink="/signup" class="btn btn-outline-success btn-lg">Get Started</a>
+<div class="hero-modern d-flex align-items-center position-relative overflow-hidden">
+  <div class="hero-background-shapes"></div>
+  <div class="row w-100 align-items-center position-relative">
+    <div class="col-md-7 hero-content">
+      <div class="hero-badge mb-3">
+        <span class="badge bg-success-gradient">🌟 Premium Quality</span>
+      </div>
+      <h1 class="display-4 hero-title mb-4">
+        Fresh <span class="text-gradient">Fruits</span> Delivered 
+        <br>to Your <span class="text-gradient">Doorstep</span>
+      </h1>
+      <p class="lead hero-subtitle mb-4">
+        Handpicked seasonal fruits from local farms. Experience the taste of nature with our premium quality produce, delivered fresh within 24 hours.
+      </p>
+      <div class="hero-stats mb-4">
+        <div class="row g-3">
+          <div class="col-4">
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Happy Customers</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-item">
+              <div class="stat-number">24hr</div>
+              <div class="stat-label">Fresh Delivery</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Organic</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a routerLink="/fruits" class="btn btn-success btn-lg btn-hero me-3">
+          <i class="fas fa-apple-alt me-2"></i>Browse Fruits
+          <span class="btn-shimmer"></span>
+        </a>
+        <a routerLink="/signup" class="btn btn-outline-success btn-lg btn-hero">
+          <i class="fas fa-rocket me-2"></i>Get Started
+          <span class="btn-shimmer"></span>
+        </a>
       </div>
     </div>
-    <div class="col-md-5 text-center">
-      <img src="assets/images/logos/logo.jpg" alt="fruit basket" style="max-width:260px;" class="img-fluid rounded">
+    <div class="col-md-5 text-center hero-image-section">
+      <div class="hero-image-wrapper">
+        <div class="floating-fruits">
+          <div class="floating-fruit fruit-1">🍎</div>
+          <div class="floating-fruit fruit-2">🍊</div>
+          <div class="floating-fruit fruit-3">🍌</div>
+          <div class="floating-fruit fruit-4">🥝</div>
+        </div>
+        <img src="assets/images/logos/logo.jpg" alt="Fresh Fruit Basket" class="hero-main-image img-fluid">
+        <div class="image-glow"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator">
+    <div class="scroll-arrow">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </div>
+</div>
+
+<div class="features-section mb-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card text-center">
+          <div class="feature-icon">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h5>Fast Delivery</h5>
+          <p class="text-muted">Same day delivery for orders placed before 2 PM</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card text-center">
+          <div class="feature-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h5>100% Organic</h5>
+          <p class="text-muted">Certified organic fruits from trusted local farms</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card text-center">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h5>Quality Guaranteed</h5>
+          <p class="text-muted">Money back guarantee if you're not satisfied</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
