@@ -9,10 +9,17 @@ import { map } from 'rxjs';
 export class UserService {
   private api = 'http://localhost:3000/users';
   constructor(private http: HttpClient) {}
+  
   login(username: string, password: string) {
     return this.http.get<User[]>(`${this.api}?username=${username}&password=${password}`)
       .pipe(map(users => users.length ? users[0] : null));
   }
+  
+  adminLogin(username: string, password: string) {
+    return this.http.get<User[]>(`${this.api}?username=${username}&password=${password}&role=admin`)
+      .pipe(map(users => users.length ? users[0] : null));
+  }
+  
   signup(u: User) { return this.http.post<User>(this.api, u); }
   getAll() { return this.http.get<User[]>(this.api); }
 }
